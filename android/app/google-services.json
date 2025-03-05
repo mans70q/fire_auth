@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "939402696180",
+    "project_id": "my-app-a89e3",
+    "storage_bucket": "my-app-a89e3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939402696180:android:7bc2c7d10c15431b4655a1",
+        "android_client_info": {
+          "package_name": "com.example.fire_auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "939402696180-3oh21bh13ece0b4up1orehbua4q7gsde.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAa2YiqVVqev8Y8Bv_TGbJibeqVm5lXaXE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "939402696180-3oh21bh13ece0b4up1orehbua4q7gsde.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "939402696180-n9e6i08oc2i69i34d5br0qmhg5oba4v1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.firebaseAuth"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
