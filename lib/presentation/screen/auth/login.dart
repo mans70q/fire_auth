@@ -49,7 +49,9 @@ class Login extends StatelessWidget {
               children: [
                 Text("Don't have an account? "),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, AppConst.signUpRoute);
+                  },
                   child: Text("Sign Up", style: AppStyles.secondary),
                 ),
               ],

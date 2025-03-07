@@ -1,3 +1,4 @@
+import 'package:fire_auth/core/routes.dart';
 import 'package:fire_auth/firebase_options.dart';
 import 'package:fire_auth/presentation/screen/auth/login.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         home: Scaffold(
           body: Login(),
         ),
+        routes: routes,
     );
   }
 }
