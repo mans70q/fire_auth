@@ -4,9 +4,45 @@ import 'package:fire_auth/core/constant/styles.dart';
 import 'package:fire_auth/core/widgets/my_button.dart';
 import 'package:fire_auth/core/widgets/my_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Login extends StatelessWidget {
+import '../../../cubits/auth_cubit/auth_cubit.dart';
+
+class Login extends StatefulWidget {
   const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  late TextEditingController _emailController;
+  late TextEditingController _passwordController;
+  @override
+  void initState() {
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> login() async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please enter email and password")),
+      );
+    } else {
+      await context.read<AuthCubit>().login(email: email, password: password);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +54,13 @@ class Login extends StatelessWidget {
             Image.asset(AppConst.loginImage, height: 300, width: 300),
             const Text("Login", style: AppStyles.heading),
             const SizedBox(height: 15),
-            MyTextField(text: "Email"),
+            MyTextField(text: "Email", controller: _emailController),
             const SizedBox(height: 15),
-            MyTextField(text: "Password"),
+            MyTextField(
+              text: "Password",
+              controller: _passwordController,
+              obscureText: true,
+            ),
             const SizedBox(height: 15),
             InkWell(
               onTap: () {},
@@ -29,7 +69,7 @@ class Login extends StatelessWidget {
             const SizedBox(height: 30),
             MyButton(
               widget: Text("Login", style: AppStyles.button),
-              onPressed: () {},
+              onPressed: login,
             ),
             const SizedBox(height: 20),
             MyButton(

@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fire_auth/data/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthRepo {
   FirebaseAuthRepo();
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   Future<void> signOut() async {
     await firebaseAuth.signOut();
   }
@@ -15,6 +18,11 @@ class FirebaseAuthRepo {
       email: email,
       password: password,
     );
+    AppUser user = AppUser(uid: firebaseAuth.currentUser!.uid, email: email);
+    await firebaseFirestore
+        .collection('users')
+        .doc(user.uid)
+        .set(user.toJson());
     return firebaseAuth.currentUser!;
   }
 
