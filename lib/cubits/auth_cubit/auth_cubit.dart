@@ -20,7 +20,6 @@ class AuthCubit extends Cubit<AuthState> {
       );
       if (user is User) {
         emit(AuthStateAuthenticated(user: user));
-        user.sendEmailVerification();
       } else {
         emit(AuthStateError(user.toString()));
         emit(AuthStateUnauthenticated());
@@ -30,11 +29,11 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthStateUnauthenticated());
     }
   }
-  
 
   Future<void> register({
     required String email,
     required String password,
+    required String name,
   }) async {
     emit(AuthStateLoading());
 
@@ -42,11 +41,21 @@ class AuthCubit extends Cubit<AuthState> {
       final user = await _firebaseAuthRepo.createUserWithEmailAndPassword(
         email,
         password,
+        name,
       );
+      print("======================================$user");
 
-      emit(AuthStateAuthenticated(user: user));
+      if (user is User) {
+        await user.sendEmailVerification();
+        emit(AuthStateAuthenticated(user: user));
+        emit(AuthStateError("Please verify your email"));
+      } else {
+        emit(AuthStateError(user.toString()));
+        emit(AuthStateUnauthenticated());
+      }
     } catch (e) {
       emit(AuthStateError(e.toString()));
+      emit(AuthStateUnauthenticated());
     }
   }
 
@@ -61,15 +70,10 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> currentUser() async {
     final user = await _firebaseAuthRepo.getCurrentUser();
-    print("===========================================$user");
     if (user != null) {
       emit(AuthStateAuthenticated(user: user));
     } else {
       emit(AuthStateUnauthenticated());
     }
-  }
-
-  Future<void> verifyEmail() async {
-    await _firebaseAuthRepo.verifyEmail();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:fire_auth/core/routes.dart';
 import 'package:fire_auth/cubits/auth_cubit/auth_cubit.dart';
+import 'package:fire_auth/cubits/profile_cubit/profile_cubit.dart';
 import 'package:fire_auth/firebase_options.dart';
 import 'package:fire_auth/presentation/screen/auth/login.dart';
 import 'package:fire_auth/presentation/screen/home/home_screen.dart';
@@ -16,39 +17,41 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: BlocProvider(
-          create: (context) => AuthCubit()..currentUser(),
-          child: BlocConsumer<AuthCubit, AuthState>(
-            builder: (context, state) {
-              if (state is AuthInitial) {
-                return Center(child: CircularProgressIndicator());
-              } else if (state is AuthStateLoading) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is AuthStateAuthenticated) {
-                return const HomeScreen();
-              } else if (state is AuthStateUnauthenticated) {
-                return const Login();
-              } else {
-                return Center(child: CircularProgressIndicator());
-              }
-            },
-            listener: (context, state) {
-              if (state is AuthStateError) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text(state.message)));
-              }
-            },
-          ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AuthCubit()..currentUser()),
+        BlocProvider(create: (context) => ProfileCubit()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: BlocConsumer<AuthCubit, AuthState>(
+          builder: (context, state) {
+            if (state is AuthStateLoading || state is AuthInitial) {
+              return const Scaffold(
+                body: Center(child: CircularProgressIndicator()),
+              );
+            } else if (state is AuthStateAuthenticated) {
+              return const HomeScreen();
+            } else if (state is AuthStateUnauthenticated) {
+              return const Login();
+            } else {
+              return const Scaffold(
+                body: Center(child: Text("Something went wrong!")),
+              );
+            }
+          },
+          listener: (context, state) {
+            if (state is AuthStateError) {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.message)));
+            }
+          },
         ),
+        routes: routes,
       ),
-      routes: routes,
     );
   }
 }

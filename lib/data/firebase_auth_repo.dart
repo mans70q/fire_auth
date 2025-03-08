@@ -10,20 +10,29 @@ class FirebaseAuthRepo {
     await firebaseAuth.signOut();
   }
 
-  Future<User> createUserWithEmailAndPassword(
+  Future createUserWithEmailAndPassword(
     String email,
     String password,
+    String name,
   ) async {
-    await firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    AppUser user = AppUser(uid: firebaseAuth.currentUser!.uid, email: email);
-    await firebaseFirestore
-        .collection('users')
-        .doc(user.uid)
-        .set(user.toJson());
-    return firebaseAuth.currentUser!;
+    try {
+      await firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      AppUser user = AppUser(
+        uid: firebaseAuth.currentUser!.uid,
+        email: email,
+        name: name,
+      );
+      await firebaseFirestore
+          .collection('users')
+          .doc(user.uid)
+          .set(user.toJson());
+      return firebaseAuth.currentUser!;
+    } catch (e) {
+      return e;
+    }
   }
 
   Future signInWithEmailAndPassword({
@@ -47,10 +56,6 @@ class FirebaseAuthRepo {
     } catch (e) {
       return e;
     }
-  }
-
-  Future<void> verifyEmail() async {
-    await firebaseAuth.currentUser!.sendEmailVerification();
   }
 
   Future<User?> getCurrentUser() async {
