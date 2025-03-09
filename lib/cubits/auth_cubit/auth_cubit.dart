@@ -22,11 +22,9 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthStateAuthenticated(user: user));
       } else {
         emit(AuthStateError(user.toString()));
-        emit(AuthStateUnauthenticated());
       }
     } catch (e) {
       emit(AuthStateError(e.toString()));
-      emit(AuthStateUnauthenticated());
     }
   }
 
@@ -43,19 +41,15 @@ class AuthCubit extends Cubit<AuthState> {
         password,
         name,
       );
-      print("======================================$user");
-
       if (user is User) {
         await user.sendEmailVerification();
         emit(AuthStateAuthenticated(user: user));
         emit(AuthStateError("Please verify your email"));
       } else {
         emit(AuthStateError(user.toString()));
-        emit(AuthStateUnauthenticated());
       }
     } catch (e) {
       emit(AuthStateError(e.toString()));
-      emit(AuthStateUnauthenticated());
     }
   }
 

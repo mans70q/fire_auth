@@ -32,7 +32,9 @@ class _SignupState extends State<Signup> {
                     ? const Center(child: CircularProgressIndicator())
                     : (state is AuthStateAuthenticated)
                     ? const HomeScreen()
-                    : (state is AuthStateUnauthenticated)
+                    : (state is AuthStateUnauthenticated ||
+                        state is AuthInitial ||
+                        state is AuthStateError)
                     ? const SignupBody()
                     : const LoginBody(),
           );

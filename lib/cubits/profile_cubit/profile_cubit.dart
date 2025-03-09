@@ -16,8 +16,11 @@ class ProfileCubit extends Cubit<ProfileState> {
       final user = await FirebaseFetchProfile().fetchProfile(
         FirebaseAuth.instance.currentUser!.uid,
       );
-      
+      if (user is AppUser) {
       emit(ProfileLoaded(user: user));
+      } else {
+        emit(ProfileError(message: user.toString()));
+      }
     } catch (error) {
       emit(ProfileError(message: error.toString()));
     }

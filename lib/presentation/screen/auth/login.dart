@@ -25,7 +25,9 @@ class Login extends StatelessWidget {
                   ? const Center(child: CircularProgressIndicator())
                   : (state is AuthStateAuthenticated)
                   ? const HomeScreen()
-                  : (state is AuthStateUnauthenticated)
+                  : (state is AuthStateUnauthenticated ||
+                      state is AuthInitial ||
+                      state is AuthStateError)
                   ? const LoginBody()
                   : const Center(child: Text("Something went wrong!")),
         );

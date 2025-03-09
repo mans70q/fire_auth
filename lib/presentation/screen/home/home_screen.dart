@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             onPressed: () {
               context.read<AuthCubit>().signOut();
-              Navigator.pushReplacementNamed(context, AppConst.loginRoute);
+              // Navigator.pushReplacementNamed(context, AppConst.loginRoute);
             },
             icon: const Icon(Icons.output_rounded),
           ),
@@ -29,7 +29,15 @@ class HomeScreen extends StatelessWidget {
           if (state is ProfileLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is ProfileLoaded) {
-            return Center(child: Text("${state.user.name}"));
+            return Center(
+              child: Column(
+                children: [
+                  Text(state.user.name ?? ''),
+                  Text(state.user.email),
+                  Text(state.user.uid),
+                ],
+              ),
+            );
           } else if (state is ProfileError) {
             return Center(child: Text(state.message));
           } else {
