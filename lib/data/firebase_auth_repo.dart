@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fire_auth/data/model/user_model.dart';
+import 'model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthRepo {

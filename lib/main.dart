@@ -1,9 +1,9 @@
-import 'package:fire_auth/core/routes.dart';
-import 'package:fire_auth/cubits/auth_cubit/auth_cubit.dart';
-import 'package:fire_auth/cubits/profile_cubit/profile_cubit.dart';
-import 'package:fire_auth/firebase_options.dart';
-import 'package:fire_auth/presentation/screen/auth/login.dart';
-import 'package:fire_auth/presentation/screen/home/home_screen.dart';
+import 'core/routes.dart';
+import 'cubits/auth_cubit/auth_cubit.dart';
+import 'cubits/profile_cubit/profile_cubit.dart';
+import 'firebase_options.dart';
+import 'presentation/screen/auth/login.dart';
+import 'presentation/screen/home/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

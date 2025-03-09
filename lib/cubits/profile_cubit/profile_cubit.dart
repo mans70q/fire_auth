@@ -1,4 +1,4 @@
-import 'package:fire_auth/data/firebase_fetch_profile.dart';
+import '../../data/firebase_fetch_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';

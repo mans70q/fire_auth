@@ -1,10 +1,10 @@
-import 'package:fire_auth/presentation/screen/auth/widgets/signup_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../cubits/auth_cubit/auth_cubit.dart';
 import '../home/home_screen.dart';
 import 'widgets/login_body.dart';
+import 'widgets/signup_body.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});

@@ -1,8 +1,6 @@
-import 'package:fire_auth/cubits/profile_cubit/profile_cubit.dart';
+import '../../../cubits/profile_cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../core/constant/strings.dart';
 import '../../../cubits/auth_cubit/auth_cubit.dart';
 
 class HomeScreen extends StatelessWidget {

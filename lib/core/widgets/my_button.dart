@@ -1,5 +1,6 @@
-import 'package:fire_auth/core/constant/colors.dart';
 import 'package:flutter/material.dart';
+
+import '../constant/colors.dart';
 
 class MyButton extends StatelessWidget {
   final Color? color;

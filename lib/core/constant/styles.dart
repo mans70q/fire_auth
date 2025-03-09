@@ -1,4 +1,4 @@
-import 'package:fire_auth/core/constant/colors.dart';
+import 'colors.dart';
 import 'package:flutter/material.dart';
 
 class AppStyles {
